@@ -1,13 +1,13 @@
-// app/home/business-register/login/page.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { Key, Phone, Eye, EyeOff, AlertCircle, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
 import { loginBusiness, loginWithPhone } from '../services/api-client';
 import { validatePhoneNumber, validateBusinessCode, persianToEnglish } from '../services/utils';
 
-export default function LoginPage() {
+// کامپوننت اصلی را داخل Suspense قرار می‌دهیم
+function LoginContent() {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -87,6 +87,10 @@ export default function LoginPage() {
     setPassword('');
     setError('');
     setIdentifierValid(null);
+  };
+
+  const handleForgotPassword = () => {
+    router.push('/home/business-register/forgot-password');
   };
 
   return (
@@ -218,7 +222,7 @@ export default function LoginPage() {
         {/* Forgot password */}
         <div className="text-center pt-4 border-t border-slate-700">
           <button
-            onClick={() => router.push('/home/business-register/forgot-password')}
+            onClick={handleForgotPassword}
             className="text-blue-400 hover:text-blue-300 transition-colors text-sm flex items-center justify-center gap-2 mx-auto"
           >
             <Sparkles className="w-4 h-4" />
@@ -237,5 +241,21 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// صفحه اصلی با Suspense
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="max-w-md mx-auto">
+        <div className="flex justify-center items-center h-64">
+          <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+          <span className="mr-3">در حال بارگذاری...</span>
+        </div>
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }
