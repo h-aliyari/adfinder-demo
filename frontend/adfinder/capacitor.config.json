@@ -1,0 +1,10 @@
+    {
+      "appId": "com.adfinder.app",
+      "appName": "adfinder",
+      "webDir": ".next", 
+      "bundledWebRuntime": false,
+      "server": {
+        "url": "YOUR_ONLINE_APP_URL",
+        "cleartext": false
+      }
+    }

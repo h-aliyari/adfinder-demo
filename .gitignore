@@ -1,0 +1,35 @@
+Docs/
+
+# Django
+__pycache__/
+*.pyc
+venv/
+db.sqlite3
+
+# Next.js
+node_modules/
+.next/
+out/
+.env.local
+
+# Virtual environment
+venv/
+env/
+*.pyc
+__pycache__/
+
+# Database files
+*.sqlite3
+db.sql
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
+.idea/
+
+# Django stuff
+*.log
+local_settings.py
