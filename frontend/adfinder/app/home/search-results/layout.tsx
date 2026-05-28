@@ -1,37 +1,13 @@
-// app/search-results/layout.tsx
-'use client';
+import React from 'react';
+import SearchResultsClientWrapper from './components/SearchResultsClientWrapper';
 
-import { ReactNode } from 'react';
-import { useSearchParams } from 'next/navigation';
-import SearchHeader from './components/SearchHeader';
-import SearchFooter from './components/SearchFooter';
-
-interface SearchResultsLayoutProps {
-  children: ReactNode;
-}
-
-export default function SearchResultsLayout({ children }: SearchResultsLayoutProps) {
-  const searchParams = useSearchParams();
-  const query = searchParams.get('q') || '';
-
+export default function SearchResultsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-primary flex flex-col">
-      {/* هدر نتایج جستجو - زیر هدر اصلی */}
-      <header className="sticky top-17 z-40 bg-background border-b border-border shadow-sm px-4 md:px-8 py-4">
-        <SearchHeader query={query} />
-      </header>
-
-      {/* محتوای اصلی - بین دو هدر و دو فوتر */}
-      <main className="flex-1 overflow-y-auto">
-        <div className="max-w-4xl mx-auto w-full px-4 md:px-8 py-6">
-          {children}
-        </div>
-      </main>
-
-      {/* فوتر نتایج جستجو - بالای فوتر اصلی */}
-      <footer className="sticky bottom-10 bg-background border-t border-border shadow-sm px-4 md:px-8 py-4">
-        <SearchFooter />
-      </footer>
+      {/* اینجا کامپوننت Client که searchParams را مدیریت می‌کند، رندر می‌شود */}
+      <SearchResultsClientWrapper>
+        {children}
+      </SearchResultsClientWrapper>
     </div>
   );
 }
