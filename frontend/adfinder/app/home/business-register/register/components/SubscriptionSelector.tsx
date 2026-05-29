@@ -1,9 +1,9 @@
-// frontend/adfinder/app/business-register/register/components/SubscriptionSelector.tsx
+// frontend/adfinder/app/home/business-register/register/components/SubscriptionSelector.tsx
 'use client';
 
 import React from 'react';
 import { CreditCard, HelpCircle } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface SubscriptionSelectorProps {
   plan: 'normal' | 'pro';
@@ -22,12 +22,6 @@ export default function SubscriptionSelector({
   onSubmitNormal,
   onSubmitSpecial
 }: SubscriptionSelectorProps) {
-  const router = useRouter();
-
-  const handleNavigateToMembership = () => {
-    router.push('/business-register/plans?preview=true');
-  };
-
   return (
     <div className="sticky top-6">
       <div className="bg-slate-900 border border-slate-700 rounded-xl p-5">
@@ -36,13 +30,13 @@ export default function SubscriptionSelector({
             <CreditCard className="w-6 h-6 text-white" />
           </div>
           <h3 className="text-xl font-bold text-white">انتخاب اشتراک</h3>
-          <button
-            onClick={handleNavigateToMembership}
-            className="text-accent flex items-center gap-1 text-sm"
+          <Link
+            href="/home/business-register/plans?preview=true"
+            className="text-accent flex items-center gap-1 text-sm hover:text-accent/80 transition-colors"
           >
             <HelpCircle className="w-4 h-4" />
             راهنمای اشتراک ها
-          </button>
+          </Link>
         </div>
 
         {/* کارت‌های اشتراک */}
@@ -50,8 +44,9 @@ export default function SubscriptionSelector({
           {/* اشتراک نرمال */}
           <div
             className={`border-2 rounded-xl p-4 cursor-pointer transition-all relative overflow-hidden ${plan === 'normal'
-              ? 'border-gradient-to-r from-blue-500 to-indigo-600 bg-linear-to-br from-blue-400/20 to-indigo-900/10'
-              : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'}`}
+                ? 'border-gradient-to-r from-blue-500 to-indigo-600 bg-linear-to-br from-blue-400/20 to-indigo-900/10'
+                : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'
+              }`}
             onClick={() => onPlanChange('normal')}
           >
             <div className="absolute top-2 right-2">
@@ -72,8 +67,9 @@ export default function SubscriptionSelector({
           {/* اشتراک پرو */}
           <div
             className={`border-2 rounded-xl p-4 cursor-pointer transition-all relative overflow-hidden ${plan === 'pro'
-              ? 'border-gradient-to-r from-purple-500 to-pink-600 bg-linear-to-br from-purple-400/20 to-pink-600/10'
-              : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'}`}
+                ? 'border-gradient-to-r from-purple-500 to-pink-600 bg-linear-to-br from-purple-400/20 to-pink-600/10'
+                : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'
+              }`}
             onClick={() => onPlanChange('pro')}
           >
             <div className="absolute top-2 right-2">
@@ -104,12 +100,10 @@ export default function SubscriptionSelector({
             {loading && codeType === 'normal' ? (
               <span className="flex items-center justify-center gap-2">
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                در حال انتقال به درگاه...
+                در حال پردازش...
               </span>
             ) : (
-              <>
-                پرداخت و ثبت نام با کد معمولی
-              </>
+              'پرداخت و ثبت نام با کد معمولی'
             )}
           </button>
 
@@ -122,25 +116,12 @@ export default function SubscriptionSelector({
             {loading && codeType === 'special' ? (
               <span className="flex items-center justify-center gap-2">
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                در حال انتقال به درگاه...
+                در حال پردازش...
               </span>
             ) : (
-              <>
-                پرداخت و ثبت نام با کد ویژه
-                <div className="text-xs font-normal mt-1 text-slate-300">
-                  (+ 50,000 تومان)
-                </div>
-              </>
+              'پرداخت و ثبت نام با کد ویژه'
             )}
           </button>
-
-          {plan === 'pro' && (
-            <div className="p-3 bg-slate-800/50 border border-slate-700 rounded-lg">
-              <p className="text-slate-400 text-sm text-center">
-                اشتراک پرو به زودی فعال خواهد شد
-              </p>
-            </div>
-          )}
         </div>
       </div>
     </div>
